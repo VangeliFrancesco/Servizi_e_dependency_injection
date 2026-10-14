@@ -1,0 +1,7 @@
+:host {
+  display: block;
+}
+
+app-studente-card {
+  max-width: 32rem;
+}

@@ -1,0 +1,12 @@
+<div class="card-body">
+  <h3 class="card-title h5">{{ studente().nome }}</h3>
+  <p class="card-text mb-3">
+    Classe {{ studente().classe }}, media
+    <strong [class.text-success]="studente().mediaVoti >= 6" [class.text-danger]="studente().mediaVoti < 6">
+      {{ studente().mediaVoti.toFixed(1) }}
+    </strong>
+  </p>
+  @if (azioni()) {
+    <button type="button" class="btn btn-sm btn-outline-danger" (click)="rimuovi()">Rimuovi dal registro</button>
+  }
+</div>

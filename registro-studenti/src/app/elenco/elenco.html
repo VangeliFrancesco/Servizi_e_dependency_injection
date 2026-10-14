@@ -1,0 +1,49 @@
+<h1 class="h2 mb-3">Elenco degli studenti</h1>
+
+<div class="row g-2 align-items-center mb-3">
+  <div class="col-auto">
+    <label for="filtro-classe" class="col-form-label">Filtra per classe</label>
+  </div>
+  <div class="col-auto">
+    <input
+      id="filtro-classe"
+      class="form-control"
+      [(ngModel)]="filtroClasse"
+      placeholder="es. 4B"
+      autocomplete="off"
+    >
+  </div>
+</div>
+
+@if (filtrati().length === 0) {
+  <div class="alert alert-warning" role="status">
+    @if (studenti().length === 0) {
+      Il registro è vuoto.
+    } @else {
+      Nessuno studente trovato per la classe {{ filtroClasse().trim() }}.
+    }
+  </div>
+} @else {
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead>
+        <tr><th scope="col">Id</th><th scope="col">Nome</th><th scope="col">Classe</th><th scope="col">Media</th><th scope="col"><span class="visually-hidden">Azioni</span></th></tr>
+      </thead>
+      <tbody>
+        @for (s of filtrati(); track s.id) {
+          <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.nome }}</td>
+            <td>{{ s.classe }}</td>
+            <td [class.text-success]="s.mediaVoti >= 6" [class.text-danger]="s.mediaVoti < 6">{{ s.mediaVoti.toFixed(1) }}</td>
+            <td class="text-end text-nowrap">
+              <a class="btn btn-sm btn-outline-primary" [routerLink]="['/elenco', s.id]">Dettaglio</a>
+              <button type="button" class="btn btn-sm btn-outline-danger ms-1" (click)="rimuovi(s.id)">Elimina</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="text-end fw-semibold">Media degli studenti visualizzati: {{ mediaClasse().toFixed(2) }}</p>
+}

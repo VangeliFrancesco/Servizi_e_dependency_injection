@@ -1,0 +1,15 @@
+<section class="p-4 p-md-5 mb-4 bg-white border rounded-3">
+  <h1 class="h2">Registro degli studenti</h1>
+  <p class="lead mb-4">Studenti registrati: {{ studentiService.numero() }}</p>
+  <a class="btn btn-primary me-2 mb-2" routerLink="/elenco">Vai all'elenco</a>
+  <a class="btn btn-outline-primary mb-2" routerLink="/inserimento">Nuovo studente</a>
+</section>
+
+@if (studentiService.migliore(); as migliore) {
+  <section aria-labelledby="migliore-titolo">
+    <h2 id="migliore-titolo" class="h4 mb-3">La media più alta</h2>
+    <app-studente-card [studente]="migliore" [azioni]="false" />
+  </section>
+} @else {
+  <p class="text-secondary">Non ci sono studenti nel registro.</p>
+}
